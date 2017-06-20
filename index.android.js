@@ -9,24 +9,40 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native';
 
 class MyComponent extends Component {
   render() {
     return (
         <View>
-          <Text> {this.props.property} </Text>
-          <Text> {this.props.property2} </Text>
+          <Text> {this.props.test} </Text>
         </View>
     );
   };
 }
 
 export default class app_jokenpo_game extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { text : 'Texto Test 2' };
+  }
+
+  alterText(){
+    this.setState({ text : 'Outra coisa' });
+  }
+
   render() {
     return (
-      <MyComponent property='Exemplo de Prop 01' property2='Exemplo de Prod 02'></MyComponent>
+      <View>
+        <MyComponent test={ this.state.text }></MyComponent>
+        <Button
+          title="Botão"
+          onPress={() => {this.alterText()}}
+        />
+      </View>
     );
   }
 }
