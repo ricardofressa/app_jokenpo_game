@@ -18,22 +18,36 @@ export default class app_jokenpo_game extends Component {
   constructor(props) {
     super(props);
     
-    this.state = { choiceUser : '' }
+    this.state = { choiceUser : '', choiceComputer : '' };
   }
 
   jokenpo(choiceUser){
-    this.setState=({ choiceUser : choiceUser  });
+
+    //Generated random number
+    var randomNumber = Math.floor(Math.random() * 3);
+
+    var choiceComputer = '';
+
+    switch(randomNumber){
+      case 0 : choiceComputer = 'Pedra'; break;
+      case 1 : choiceComputer = 'Papel'; break;
+      case 2 : choiceComputer = 'Tesoura'; break;
+    }
+
+    this.setState({ choiceUser : choiceUser,
+                    choiceComputer : choiceComputer
+                  });
   }
 
   render() {
     return (
       <View>
         <Text> Escolha do usuário : { this.state.choiceUser } </Text>
-        <Text> Escolha do computador </Text>
+        <Text> Escolha do computador : { this.state.choiceComputer } </Text>
         <Text> Resultado </Text>
-        <Button title="Pedra" onPress={ () => {this.jokenpo()} } />
-        <Button title="Papel" onPress={ () => {this.jokenpo()} } />
-        <Button title="Tesoura" onPress={ () => {this.jokenpo()} } />
+        <Button title="Pedra" onPress={ () => {this.jokenpo('Pedra')} } />
+        <Button title="Papel" onPress={ () => {this.jokenpo('Papel')} } />
+        <Button title="Tesoura" onPress={ () => {this.jokenpo('Tesoura')} } />
       </View>
     );
   }
