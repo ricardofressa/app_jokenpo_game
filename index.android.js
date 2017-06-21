@@ -45,11 +45,11 @@ export default class app_jokenpo_game extends Component {
       }
 
       if(choiceUser == 'Papel'){
-        result = 'Usuário ganhou';
+        result = 'Você ganhou';
       }
 
       if(choiceUser == 'Tesoura'){
-        result = 'Computador ganhou';
+        result = 'Você perdeu';
       }
     }
 
@@ -59,11 +59,11 @@ export default class app_jokenpo_game extends Component {
       }
 
       if(choiceUser == 'Tesoura'){
-        result = 'Usuário ganhou';
+        result = 'Você ganhou';
       }
 
       if(choiceUser == 'Pedra'){
-        result = 'Computador ganhou';
+        result = 'Você perdeu';
       }
     }
 
@@ -73,11 +73,11 @@ export default class app_jokenpo_game extends Component {
       }
 
       if(choiceUser == 'Pedra'){
-        result = 'Usuário ganhou';
+        result = 'Você ganhou';
       }
 
       if(choiceUser == 'Papel'){
-        result = 'Computador ganhou';
+        result = 'Você perdeu.';
       }
     }
 
@@ -111,10 +111,13 @@ export default class app_jokenpo_game extends Component {
 
         </View>
 
-        <Text> Escolha do usuário : { this.state.choiceUser } </Text>
-        <Text> Escolha do computador : { this.state.choiceComputer } </Text>
-        <Text> Resultado : { this.state.result} </Text>
-
+        <View style={styles.stage}>
+          <Text style={styles.txtResult}> { this.state.result} </Text>
+          
+          <MyIcon choice={this.state.choiceUser} player='Você'></MyIcon>
+          <MyIcon choice={this.state.choiceComputer} player='Computador'></MyIcon>
+        </View>
+        
       </View>
     );
   }
@@ -130,6 +133,42 @@ class Top extends Component {
   }
 }
 
+class MyIcon extends Component {
+  render () {
+
+    if( this.props.choice == 'Pedra' ){
+
+      return (
+        <View style={ styles.myIconStyle }>
+          <Text>{this.props.player}</Text>
+          <Image source={ require('./imgs/pedra.png') } />
+        </View>
+      );
+
+    }else if( this.props.choice == 'Papel' ){
+
+      return (
+        <View style={ styles.myIconStyle }>
+          <Text>{this.props.player}</Text>
+          <Image source={ require('./imgs/papel.png') } />
+        </View>
+      );
+
+    }else if( this.props.choice == 'Tesoura'){
+
+      return (
+        <View style={ styles.myIconStyle }>
+          <Text>{this.props.player}</Text>
+          <Image source={ require('./imgs/tesoura.png') } />
+        </View>
+      );
+
+    }else{
+      return false;
+    }
+  };
+}
+
 const styles = StyleSheet.create({
     btnChoice : {
       width : 90
@@ -138,6 +177,24 @@ const styles = StyleSheet.create({
       flexDirection : 'row',
       justifyContent : 'space-between',
       marginTop : 10
+    },
+    stage : {
+      marginTop : 40,
+      alignItems : 'center'
+    },
+    txtResult : {
+      fontSize : 30,
+      fontWeight : 'bold',
+      color : 'red',
+      height : 60
+    },
+    myIconStyle : {
+      marginBottom : 10,
+      alignItems : 'center'
+    },
+    txtPlayer : {
+      fontSize : 18,
+      fontWeight : 'bold'
     }
 });
 AppRegistry.registerComponent('app_jokenpo_game', () => app_jokenpo_game);
