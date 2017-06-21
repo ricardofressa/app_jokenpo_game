@@ -95,12 +95,26 @@ export default class app_jokenpo_game extends Component {
           <Top />
         </View>
 
+        <View style={ styles.painelActions }>
+          
+          <View style= { styles.btnChoice } >
+            <Button title="Pedra" onPress={ () => {this.jokenpo('Pedra')} } />
+          </View>
+
+          <View style= { styles.btnChoice }>
+            <Button title="Papel" onPress={ () => {this.jokenpo('Papel')} } />
+          </View>
+
+          <View style= { styles.btnChoice }>
+            <Button title="Tesoura" onPress={ () => {this.jokenpo('Tesoura')} } />
+          </View>
+
+        </View>
+
         <Text> Escolha do usuário : { this.state.choiceUser } </Text>
         <Text> Escolha do computador : { this.state.choiceComputer } </Text>
         <Text> Resultado : { this.state.result} </Text>
-        <Button title="Pedra" onPress={ () => {this.jokenpo('Pedra')} } />
-        <Button title="Papel" onPress={ () => {this.jokenpo('Papel')} } />
-        <Button title="Tesoura" onPress={ () => {this.jokenpo('Tesoura')} } />
+
       </View>
     );
   }
@@ -115,4 +129,15 @@ class Top extends Component {
       );
   }
 }
+
+const styles = StyleSheet.create({
+    btnChoice : {
+      width : 90
+    },
+    painelActions : {
+      flexDirection : 'row',
+      justifyContent : 'space-between',
+      marginTop : 10
+    }
+});
 AppRegistry.registerComponent('app_jokenpo_game', () => app_jokenpo_game);
