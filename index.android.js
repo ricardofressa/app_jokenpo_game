@@ -5,88 +5,78 @@
  */
 
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Image
-} from 'react-native';
+import { AppRegistry, StyleSheet, Text, View, Button } from 'react-native';
 
-export default class app_jokenpo_game extends Component {
+import Top from './src/components/top.js';
+import Icon from './src/components/icon.js';
+
+export default class appJokenpoGame extends Component {
 
   constructor(props) {
     super(props);
     
-    this.state = {  choiceUser : '', 
-                    choiceComputer : '',
-                    result : '' };
+    this.state = { choiceUser: '', choiceComputer: '', result: '' };
   }
 
-  jokenpo(choiceUser){
-
+  jokenpo(choiceUser) {
     //Generated random number
-    var randomNumber = Math.floor(Math.random() * 3);
+    const randomNumber = Math.floor(Math.random() * 3);
 
-    var choiceComputer = '';
+    let choiceComputer = '';
 
-    switch(randomNumber){
+    switch (randomNumber) {
       case 0 : choiceComputer = 'Pedra'; break;
       case 1 : choiceComputer = 'Papel'; break;
       case 2 : choiceComputer = 'Tesoura'; break;
+      default : choiceComputer = '';
     }
 
-    var result = ''
+    let result = '';
 
-    if(choiceComputer == 'Pedra'){
-      if(choiceUser == 'Pedra'){
+    if (choiceComputer === 'Pedra') {
+      if (choiceUser === 'Pedra') {
         result = 'Empate';
       }
 
-      if(choiceUser == 'Papel'){
+      if (choiceUser === 'Papel') { 
         result = 'Você ganhou';
       }
 
-      if(choiceUser == 'Tesoura'){
+      if (choiceUser === 'Tesoura') {
         result = 'Você perdeu';
       }
     }
 
-    if(choiceComputer == 'Papel'){
-      if(choiceUser == 'Papel'){
+    if (choiceComputer === 'Papel') {
+      if (choiceUser === 'Papel') {
         result = 'Empate';
       }
 
-      if(choiceUser == 'Tesoura'){
+      if (choiceUser === 'Tesoura') {
         result = 'Você ganhou';
       }
 
-      if(choiceUser == 'Pedra'){
+      if (choiceUser === 'Pedra') {
         result = 'Você perdeu';
       }
     }
 
-    if(choiceComputer == 'Tesoura'){
-      if(choiceUser == 'Tesoura'){
+    if (choiceComputer === 'Tesoura') {
+      if (choiceUser === 'Tesoura') {
         result = 'Empate';
       }
 
-      if(choiceUser == 'Pedra'){
+      if (choiceUser === 'Pedra') {
         result = 'Você ganhou';
       }
 
-      if(choiceUser == 'Papel'){
+      if (choiceUser === 'Papel') {
         result = 'Você perdeu.';
       }
     }
 
-    this.setState({ choiceUser : choiceUser,
-                    choiceComputer : choiceComputer,
-                    result : result
-                  });
+    this.setState({ choiceUser, choiceComputer, result });
   }
-
 
   render() {
     return (
@@ -95,106 +85,50 @@ export default class app_jokenpo_game extends Component {
           <Top />
         </View>
 
-        <View style={ styles.painelActions }>
-          
-          <View style= { styles.btnChoice } >
-            <Button title="Pedra" onPress={ () => {this.jokenpo('Pedra')} } />
+        <View style={styles.painelActions}>    
+          <View style={styles.btnChoice}>
+            <Button title="Pedra" onPress={() => { this.jokenpo('Pedra'); }} />
           </View>
 
-          <View style= { styles.btnChoice }>
-            <Button title="Papel" onPress={ () => {this.jokenpo('Papel')} } />
+          <View style={styles.btnChoice}>
+            <Button title="Papel" onPress={() => { this.jokenpo('Papel'); }} />
           </View>
 
-          <View style= { styles.btnChoice }>
-            <Button title="Tesoura" onPress={ () => {this.jokenpo('Tesoura')} } />
+          <View style={styles.btnChoice}>
+            <Button title="Tesoura" onPress={() => { this.jokenpo('Tesoura'); }} />
           </View>
-
         </View>
 
         <View style={styles.stage}>
           <Text style={styles.txtResult}> { this.state.result} </Text>
-          
-          <MyIcon choice={this.state.choiceUser} player='Você'></MyIcon>
-          <MyIcon choice={this.state.choiceComputer} player='Computador'></MyIcon>
+          <Icon choice={this.state.choiceUser} player='Você' />
+          <Icon choice={this.state.choiceComputer} player='Computador' />
         </View>
-        
+
       </View>
     );
   }
-}
-
-class Top extends Component {
-  render() {
-    return (
-        <View>
-          <Image source={ require('./imgs/jokenpo.png') } />
-        </View>
-      );
-  }
-}
-
-class MyIcon extends Component {
-  render () {
-
-    if( this.props.choice == 'Pedra' ){
-
-      return (
-        <View style={ styles.myIconStyle }>
-          <Text>{this.props.player}</Text>
-          <Image source={ require('./imgs/pedra.png') } />
-        </View>
-      );
-
-    }else if( this.props.choice == 'Papel' ){
-
-      return (
-        <View style={ styles.myIconStyle }>
-          <Text>{this.props.player}</Text>
-          <Image source={ require('./imgs/papel.png') } />
-        </View>
-      );
-
-    }else if( this.props.choice == 'Tesoura'){
-
-      return (
-        <View style={ styles.myIconStyle }>
-          <Text>{this.props.player}</Text>
-          <Image source={ require('./imgs/tesoura.png') } />
-        </View>
-      );
-
-    }else{
-      return false;
-    }
-  };
-}
+} 
 
 const styles = StyleSheet.create({
-    btnChoice : {
-      width : 90
+    btnChoice: {
+      width: 90
     },
-    painelActions : {
-      flexDirection : 'row',
-      justifyContent : 'space-between',
-      marginTop : 10
+    painelActions: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: 10
     },
-    stage : {
-      marginTop : 40,
-      alignItems : 'center'
+    stage: {
+      marginTop: 40,
+      alignItems: 'center'
     },
-    txtResult : {
-      fontSize : 30,
-      fontWeight : 'bold',
-      color : 'red',
-      height : 60
-    },
-    myIconStyle : {
-      marginBottom : 10,
-      alignItems : 'center'
-    },
-    txtPlayer : {
-      fontSize : 18,
-      fontWeight : 'bold'
+    txtResult: {
+      fontSize: 30,
+      fontWeight: 'bold',
+      color: 'red',
+      height: 60
     }
 });
-AppRegistry.registerComponent('app_jokenpo_game', () => app_jokenpo_game);
+
+AppRegistry.registerComponent('app_jokenpo_game', () => appJokenpoGame);
